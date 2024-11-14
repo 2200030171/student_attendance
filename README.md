@@ -1,16 +1,11 @@
 # student_attendance
 
-A new Flutter project.
 
-## Getting Started
+![image](https://github.com/user-attachments/assets/611e5311-9821-49c9-84e5-c42f155406e8)
 
-This project is a starting point for a Flutter application.
+![image](https://github.com/user-attachments/assets/f21e7d68-6303-4e7e-a440-4a820477d6b1)
 
-A few resources to get you started if this is your first Flutter project:
+![image](https://github.com/user-attachments/assets/aa272df8-5a48-422d-a243-63379bfbb3de)
+![image](https://github.com/user-attachments/assets/504953b4-35db-4768-af07-b67133cffe87)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![image](https://github.com/user-attachments/assets/c50d260f-74ae-4613-9cce-b872b30a11c5)
