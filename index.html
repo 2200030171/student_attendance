@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <script>
+        async function addStudent(event) {
+            event.preventDefault();
+            const studentId = document.getElementById('addStudentId').value;
+            const name = document.getElementById('addName').value;
+            const status = document.getElementById('addStatus').checked;
+
+            const response = await fetch('http://localhost:3000/add-student', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentId, name, status }),
+            });
+
+            if (response.ok) {
+                alert('Student added successfully');
+                document.getElementById('addStudentForm').reset();
+            } else {
+                alert('Error adding student');
+            }
+        }
+
+        async function getStudents() {
+            const response = await fetch('http://localhost:3000/students');
+            const students = await response.json();
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = ''; // Clear existing list
+
+            students.forEach(student => {
+                const li = document.createElement('li');
+                li.textContent = `ID: ${student.studentId}, Name: ${student.name}, Status: ${student.status}`;
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = () => deleteStudent(student._id);
+                li.appendChild(deleteButton);
+                studentList.appendChild(li);
+            });
+        }
+
+        async function deleteStudent(id) {
+            const response = await fetch(`http://localhost:3000/delete-student/${id}`, { method: 'DELETE' });
+
+            if (response.ok) {
+                alert('Student deleted successfully');
+                getStudents(); // Refresh the student list
+            } else {
+                alert('Error deleting student');
+            }
+        }
+
+        async function updateStudent(event) {
+            event.preventDefault();
+            const studentId = document.getElementById('updateStudentId').value;
+            const name = document.getElementById('updateName').value;
+            const status = document.getElementById('updateStatus').checked;
+            const studentIdToUpdate = document.getElementById('studentIdToUpdate').value;
+
+            const response = await fetch(`http://localhost:3000/update-student/${studentIdToUpdate}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentId, name, status }),
+            });
+
+            if (response.ok) {
+                alert('Student updated successfully');
+                document.getElementById('updateStudentForm').reset();
+            } else {
+                alert('Error updating student');
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Student Management</h1>
+
+<h2>Add Student</h2>
+<form id="addStudentForm" onsubmit="addStudent(event)">
+    <label for="addStudentId">Student ID:</label>
+    <input type="text" id="addStudentId" required><br>
+    <label for="addName">Name:</label>
+    <input type="text" id="addName" required><br>
+    <label for="addStatus">Present:</label>
+    <input type="checkbox" id="addStatus"><br>
+    <button type="submit">Add Student</button>
+</form>
+
+<h2>All Students</h2>
+<button onclick="getStudents()">Retrieve Students</button>
+<ul id="studentList"></ul>
+
+<h2>Update Student</h2>
+<form id="updateStudentForm" onsubmit="updateStudent(event)">
+    <label for="studentIdToUpdate">Student ID to Update:</label>
+    <input type="text" id="studentIdToUpdate" required><br>
+    <label for="updateStudentId">New Student ID:</label>
+    <input type="text" id="updateStudentId" required><br>
+    <label for="updateName">New Name:</label>
+    <input type="text" id="updateName" required><br>
+    <label for="updateStatus">Present:</label>
+    <input type="checkbox" id="updateStatus"><br>
+    <button type="submit">Update Student</button>
+</form>
+</body>
+</html>
